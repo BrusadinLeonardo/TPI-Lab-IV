@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEVV</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">socialEvent</a> 
+            </div>
+            <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;"> &nbsp; <a href="#" id="logoutBtn" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+        </nav>   
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li class="text-center">
+                        <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                    </li>
+                    <li>
+                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Gestion Evento</a>
+                    </li>
+                    <li>
+                        <a href="table1.html"><i class="fa fa-table fa-3x"></i> Gestion Inscripciones</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Gestion APIS<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="usuarios.html">Gestion Usuarios</a>
+                            </li>
+                            <li>
+                                <a href="evento.html">Gestion Eventos</a>
+                            </li>
+                            <li>
+                                <a href="inscripciones.html">Gestion Inscripciones</a>
+                            </li>
+                            <li>
+                                <a href="categorias.html">Gestion Categorias</a>
+                            </li>
+                        </ul>
+                    </li>  
+                </ul>
+            </div>
+        </nav>    
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Categorías</h2>   
+                        <h5>ABM de Categorías </h5>
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="form-container">
+                    <h1>Crear Categoría</h1>
+                    <form id="create-category-form" onsubmit="handleCreateCategory(event)">
+                        <label for="nombre_categoria">Nombre:</label>
+                        <input type="text" id="nombre_categoria" name="nombre_categoria" required>
+                        
+                        <!-- Agregar campo de descripción si es necesario -->
+                        <label for="descripcion_categoria">Descripción:</label>
+                        <input type="text" id="descripcion_categoria" name="descripcion_categoria">
+                        
+                        <button type="submit">Crear Categoría</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="create-category-response"></pre>
+                    </div>
+                </div>
+                
+            
+                <div class="form-container">
+                    <h1>Actualizar Categoría</h1>
+                    <form id="update-category-form" onsubmit="handleUpdateCategory(event)">
+                        <label for="update_categoria_id">ID de Categoría:</label>
+                        <input type="number" id="update_categoria_id" name="categoria_id" required>
+                        
+                        <label for="update_nombre_categoria">Nuevo Nombre:</label>
+                        <input type="text" id="update_nombre_categoria" name="nombre_categoria">
+                        
+                        <!-- Agregar campo de descripción si es necesario -->
+                        <label for="update_descripcion_categoria">Nueva Descripción:</label>
+                        <input type="text" id="update_descripcion_categoria" name="descripcion_categoria">
+                        
+                        <button type="submit">Actualizar Categoría</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="update-category-response"></pre>
+                    </div>
+                </div>
+                
+            
+                <div class="form-container">
+                    <h1>Eliminar Categoría</h1>
+                    <form id="delete-category-form" onsubmit="handleDeleteCategory(event)">
+                        <label for="delete_categoria_id">ID de Categoría:</label>
+                        <input type="number" id="delete_categoria_id" name="categoria_id" required>
+            
+                        <button type="submit">Eliminar Categoría</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="delete-category-response"></pre>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Obtener Todas las Categorías</h1>
+                    <form id="get-categories-form" onsubmit="handleGetCategories(event)">
+                        <button type="submit">Obtener Categorías</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <div id="get-categories-response" class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categories-table-body">
+                                    <!-- Filas de categorías se insertarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Obtener Categoría por ID</h1>
+                    <form id="get-category-by-id-form" onsubmit="handleGetCategoryById(event)">
+                        <label for="get_categoria_id">ID de Categoría:</label>
+                        <input type="number" id="get_categoria_id" name="categoria_id" required>
+            
+                        <button type="submit">Obtener Categoría</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="get-category-by-id-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+    <!-- SCRIPTS PROPIOS DE CATEGORÍAS -->
+    <script src="assets/js/categorias.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GEVV</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">socialEvent</a> 
+            </div>
+            <div style="color: white;
+            padding: 15px 50px 5px 50px;
+            float: right;
+            font-size: 16px;">  &nbsp; <a href="#" id="logoutBtn" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+        </nav>   
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li class="text-center">
+                        <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                    </li>
+                    <li>
+                        <a class="active-menu"  href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="table.html"><i class="fa fa-table fa-3x"></i> Gestion Evento</a>
+                    </li>
+                    <li>
+                        <a href="table1.html"><i class="fa fa-table fa-3x"></i> Gestion Inscripciones</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Gestion APIS<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="usuarios.html">Gestion Usuarios</a>
+                            </li>
+                            <li>
+                                <a href="evento.html">Gestion Eventos</a>
+                            </li>
+                            <li>
+                                <a href="inscripciones.html">Gestion Inscripciones</a>
+                            </li>
+                            <li>
+                                <a href="categorias.html">Gestion Categorias</a>
+                            </li>
+                        </ul>
+                    </li>  
+                </ul>
+            </div>
+        </nav>    
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Inscripciones</h2>   
+                        <h5>ABM de Inscripciones </h5>
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="form-container">
+                    <h1>Crear Inscripción</h1>
+                    <form id="create-inscription-form" onsubmit="handleCreateInscription(event)">
+                        <label for="evento_id">ID de Evento:</label>
+                        <input type="number" id="evento_id" name="evento_id" required>
+            
+                        <label for="usuario_id">ID de Usuario:</label>
+                        <input type="number" id="usuario_id" name="usuario_id" required>
+            
+                        <label for="fecha_inscripcion">Fecha de Inscripción:</label>
+                        <input type="date" id="fecha_inscripcion" name="fecha_inscripcion" required>
+            
+                        <button type="submit">Crear Inscripción</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="create-inscription-response"></pre>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Actualizar Inscripción</h1>
+                    <form id="update-inscription-form" onsubmit="handleUpdateInscription(event)">
+                        <label for="update_inscription_id">ID de Inscripción:</label>
+                        <input type="number" id="update_inscription_id" name="inscription_id" required>
+            
+                        <label for="evento_id">ID de Evento:</label>
+                        <input type="number" id="update_evento_id" name="evento_id">
+            
+                        <label for="usuario_id">ID de Usuario:</label>
+                        <input type="number" id="update_usuario_id" name="usuario_id">
+            
+                        <label for="fecha_inscripcion">Fecha de Inscripción:</label>
+                        <input type="date" id="update_fecha_inscripcion" name="fecha_inscripcion">
+            
+                        <button type="submit">Actualizar Inscripción</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="update-inscription-response"></pre>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Eliminar Inscripción</h1>
+                    <form id="delete-inscription-form" onsubmit="handleDeleteInscription(event)">
+                        <label for="delete_inscription_id">ID de Inscripción:</label>
+                        <input type="number" id="delete_inscription_id" name="inscription_id" required>
+            
+                        <button type="submit">Eliminar Inscripción</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="delete-inscription-response"></pre>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Obtener Todas las Inscripciones</h1>
+                    <form id="get-inscriptions-form" onsubmit="handleGetInscriptions(event)">
+                        <button type="submit">Obtener Inscripciones</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <div id="get-inscriptions-response" class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID de Evento</th>
+                                        <th>ID de Usuario</th>
+                                        <th>Fecha de Inscripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inscriptions-table-body">
+                                    <!-- Filas de inscripciones se insertarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="form-container">
+                    <h1>Obtener Inscripción por ID</h1>
+                    <form id="get-inscription-by-id-form" onsubmit="handleGetInscriptionById(event)">
+                        <label for="get_inscription_id">ID de Inscripción:</label>
+                        <input type="number" id="get_inscription_id" name="inscription_id" required>
+            
+                        <button type="submit">Obtener Inscripción</button>
+                    </form>
+                    <div class="response-container">
+                        <h2>Respuesta:</h2>
+                        <pre id="get-inscription-by-id-response"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+    <!-- SCRIPTS PROPIOS DE INSCRIPCIONES -->
+    <script src="assets/js/inscripciones.js"></script>
+</body>
+</html>

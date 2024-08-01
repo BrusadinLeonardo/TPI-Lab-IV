@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+</head>
+<body>
+  <h1>SISTEMA DE GESTIÓN DE EVENTOS</h1>
+
+  <script>
+    
+    //debugger;
+
+    const usuarioAutenticado = localStorage.getItem('accessToken');
+
+    if (usuarioAutenticado) {
+
+      debugger;
+
+        // Decodificar el token para obtener los datos
+        const tokenData = decodeJWT(usuarioAutenticado);
+
+        //obtiene el rol del usuario
+        const usuarioRol = tokenData.rol;
+
+        //limpia el userId
+        localStorage.setItem('userId', '');
+
+      switch (usuarioRol) {
+        case 'Administrador':
+          window.location.href = 'frontend-Admin/index.html'; // Redirige al admin
+          break;
+        case 'Cliente':
+          //guarda el id del cliente
+          localStorage.setItem('userId', tokenData.user_id);
+
+          window.location.href = 'frontend-Cliente/index.html'; // Redirige al cliente
+          break;
+        default:
+            alert('Error en ROL - redirecciona a Login');
+          // En caso de un rol desconocido, podrías redirigir a una página de error o a login
+          window.location.href = 'login/login.html'; // Redirige al login (ejemplo genérico)
+          break;
+      }
+    } else {
+      // Si no está autenticado, redirige a la página de login
+      window.location.href = 'login/login.html';
+    }
+
+
+// Función para decodificar el token JWT
+function decodeJWT(token) {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+  
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Error al decodificar el token JWT:', error);
+      return null;
+    }
+  }
+  
+  </script>
+</body>
+</html>

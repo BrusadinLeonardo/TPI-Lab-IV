@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card-header {
+            background-color: #202020;
+            color: white;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #202020;
+            border-color: #202020;
+        }
+
+        .btn-primary:hover {
+            background-color: #202020;
+            border-color: #202020;
+        }
+
+        .logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px; /* Ajusta el tamaño del logo según sea necesario */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-md-6 text-center">
+                <img src="/login/assets/img/social event.svg" alt="Logo de la Empresa" class="logo">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Registro de Usuario</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="register-form" onsubmit="handleCreateUser(event)">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="hashed_password">Contraseña:</label>
+                                <input type="password" class="form-control" id="hashed_password" name="hashed_password" required>
+                            </div>
+    
+                            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="./login.html" class="text-secondary">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+                    </div>
+                    <pre id="create-user-response"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+<!-- Bootstrap JS y otros scripts si es necesario -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-LS82EAB/7eMW3Jz9bDVJjJceJCB1+Kt0B0VdIdvlAoZIS3+jCRgGqG8IXPcz++Dz"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jFc7f8+BjT2vX+1B/Kj9f8qRI4gpJw1rF5"
+        crossorigin="anonymous"></script>
+
+<!-- Función JavaScript para manejar el formulario de registro -->
+<script>
+async function handleCreateUser(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {
+        nombre: formData.get('nombre'),
+        email: formData.get('email'),
+        hashed_password: formData.get('hashed_password'),
+        rol: 'Cliente' // Valor fijo para el rol
+    };
+
+    try {
+        const params = new URLSearchParams();
+        params.append('nombre', data.nombre);
+        params.append('email', data.email);
+        params.append('hashed_password', data.hashed_password);
+        params.append('rol', data.rol); // Se añade el rol fijo
+
+        const response = await fetch('http://127.0.0.1:8000/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        document.getElementById('create-user-response').textContent = JSON.stringify(result, null, 2);
+
+        // Redirigir al usuario a index.html
+        window.location.href = 'http://127.0.0.1:5500/#';
+    } catch (error) {
+        document.getElementById('create-user-response').textContent = `Error: ${error.message}`;
+    }
+}
+
+
+</script>
+
+</body>
+</html>
